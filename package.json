@@ -9,8 +9,11 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "@picocss/pico": "^1.5.7",
+    "dotenv": "^16.0.3",
     "ejs": "^2.6.1",
     "express": "^4.17.1",
+    "express-session": "^1.17.3",
     "socket.io": "^2.2.0"
   },
   "devDependencies": {
