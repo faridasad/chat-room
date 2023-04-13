@@ -1,0 +1,13 @@
+header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 1rem !important;
+    margin: 0;
+
+}
+
+header h1 {
+    font-size: clamp(0.8rem, 2vw, 1rem);
+    margin: 0;
+}
