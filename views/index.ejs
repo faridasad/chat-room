@@ -19,9 +19,9 @@
       <a href="/logout">Logout</a>
     </header>
     <div id="room-container">
-      <% Object.keys(rooms).forEach(room => { %>
-      <div><%= room %></div>
-      <a href="/<%= room %>">Join/room</a>
+      <% rooms.forEach(r => { %>
+      <div><%= r.room %></div>
+      <a href="/<%= r.room %>">Join</a>
       <% }) %>
     </div>
     <% if (user.isAdmin === true) { %>
