@@ -1,7 +1,5 @@
 const express = require("express");
 const session = require("express-session");
-const RedisStore = require("connect-redis").default
-const createClient = require("redis")
 const app = express();
 const server = require("http").Server(app);
 const io = require("socket.io")(server);
@@ -9,14 +7,6 @@ const { config } = require("dotenv");
 config();
 
 const requireLogin = require("./middlewares/requireLogin.js");
-
-let redisClient = createClient();
-redisClient.connect().catch(console.error);
-
-let redisStore = new RedisStore({
-  client: redisClient,
-  prefix: "myapp:",
-})
 
 app.set("views", "./views");
 app.set("view engine", "ejs");
@@ -27,7 +17,6 @@ app.use(
     secret: process.env.SESSION_SECRET,
     resave: false,
     saveUninitialized: false,
-    store: redisStore,
   })
 );
 
