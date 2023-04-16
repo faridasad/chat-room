@@ -18,7 +18,7 @@ usernameInput.addEventListener("change", () => {
     usernameInput.setAttribute("aria-invalid", false);
   }
 
-  if (usernameInput.value === admin) {
+  if (usernameInput.value === 'OneTrueGod') {
     grid.innerHTML = `
           <input
             type="text"
@@ -36,11 +36,5 @@ usernameInput.addEventListener("change", () => {
       `;
     passwordInput = document.querySelector("input[name='password']");
   }
-});
-
-passwordInput?.addEventListener("change", () => {
-  if (passwordInput.value === pass)
-    passwordInput.setAttribute("aria-invalid", false);
-  else passwordInput.setAttribute("aria-invalid", true);
 });
 
