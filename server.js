@@ -1,5 +1,6 @@
 const express = require("express");
 const session = require("express-session");
+const MongoStore = require("connect-mongo");
 const app = express();
 const server = require("http").Server(app);
 const io = require("socket.io")(server);
@@ -14,9 +15,10 @@ app.use(express.static("public"));
 app.use(express.urlencoded({ extended: true }));
 app.use(
   session({
-    secret: "mysecret",
+    secret: process.env.SESSION_SECRET,
     resave: false,
     saveUninitialized: false,
+    store: MongoStore.create({mongoUrl: process.env.MONGO_URI})
   })
 );
 
