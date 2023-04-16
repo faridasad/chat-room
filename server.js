@@ -55,7 +55,6 @@ app.post("/index", (req, res, next) => {
 });
 
 app.get("/index", requireLogin, (req, res) => {
-  console.log(rooms)
   res.render("index", { rooms, user: req.session.user });
 });
 
@@ -70,8 +69,8 @@ app.get("/logout", (req, res) => {
 });
 
 app.post("/room", (req, res) => {
-  if (rooms[req.body.room] != null) {
-    return res.redirect("/");
+  if (rooms.find((r) => r.room === req.body.room)) {
+    return res.redirect("/index");
   }
 
   rooms.push({
@@ -94,7 +93,7 @@ app.get("/:room", (req, res) => {
   });
   res.render("room", {
     roomName: req.params.room,
-    username: req.session.user.username,
+    user: req.session.user,
   });
 });
 
