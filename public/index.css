@@ -1,13 +1,123 @@
 header {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    padding: 1rem !important;
-    margin: 0;
-
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 1rem !important;
+  margin: 0;
+  border-bottom: 1px solid #ccc;
 }
 
 header h1 {
-    font-size: clamp(0.8rem, 2vw, 1rem);
-    margin: 0;
+  font-size: clamp(0.8rem, 2vw, 1rem);
+  margin: 0;
+}
+
+.wrapper {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
+  height: calc(100vh - 3.75rem);
+  width: 100vw;
+}
+
+#message-container::-webkit-scrollbar-track {
+  -webkit-box-shadow: inset 0 0 3px #1d2b35;
+  border-radius: 10px;
+  background-color: transparent;
+}
+
+#message-container::-webkit-scrollbar {
+  width: 6px;
+  background-color: transparent;
+}
+
+#message-container::-webkit-scrollbar-thumb {
+  border-radius: 10px;
+  -webkit-box-shadow: inset 0 0 3px #1d2b35;
+  background-color: #1d2b35;
+}
+
+#message-container {
+  width: 100%;
+  flex: 9;
+  max-height: calc(100vh - 8.5rem);
+  overflow: auto;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  margin-block: 0.75rem;
+  padding: 0 1rem;
+  position: relative;
+}
+
+#message-container .leave {
+  position: absolute;
+  top: 0;
+  right: 20px;
+  background-color: rgb(204, 2, 2);
+  color: #fff;
+  padding: 0.3rem 1rem;
+  border-radius: 0.5rem;
+  font-size: 0.8rem;
+}
+
+#message-container .leave:hover {
+  text-decoration: none;
+  background-color: rgb(160, 12, 12);
+}
+
+#message-container div {
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  color: #000;
+  width: max-content;
+  font-size: 0.9rem;
+}
+
+.author-name {
+  font-size: 0.8rem;
+  font-style: italic;
+}
+
+#message-container div.author {
+  align-self: flex-end;
+}
+
+#message-container div.author .author-name {
+  align-self: flex-end;
+}
+
+#message-container div .author-name {
+  color: #fff;
+}
+
+#message-container div .message {
+  background-color: #ccc;
+  padding: 0.5rem 1rem;
+  border-radius: 1rem;
+}
+
+#message-container div.author .message {
+  background-color: #1ab3e6;
+}
+
+#send-container {
+  width: 100%;
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin: 0 0 1rem 0 !important;
+}
+
+#message-input {
+  flex: 9;
+  margin: 0 !important;
+}
+
+#send-button {
+  margin: 0 0 0 1rem !important;
+  flex: 1;
 }
