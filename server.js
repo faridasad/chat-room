@@ -6,7 +6,9 @@ const io = require("socket.io")(server);
 const { config } = require("dotenv");
 config();
 
+
 const requireLogin = require("./middlewares/requireLogin.js");
+const memoryStore = new session.MemoryStore();
 
 app.set("views", "./views");
 app.set("view engine", "ejs");
@@ -17,6 +19,7 @@ app.use(
     secret: process.env.SESSION_SECRET,
     resave: false,
     saveUninitialized: false,
+    store: memoryStore,
   })
 );
 
@@ -97,7 +100,10 @@ app.get("/:room", (req, res) => {
   });
 });
 
-server.listen(3000);
+
+server.listen(process.env.PORT, () => {
+  console.log(`Server is running on port ${process.env.PORT}`);
+});
 
 // Socket
 
