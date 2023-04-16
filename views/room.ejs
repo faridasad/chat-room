@@ -1,58 +1,32 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta http-equiv="X-UA-Compatible" content="ie=edge">
-  <title>Chat App</title>
-  <script>
-    const roomName = "<%= roomName %>"
-    const username = "<%= username %>"
-  </script>
-  <script defer src="http://localhost:3000/socket.io/socket.io.js"></script>
-  <script defer src="script.js"></script>
-  <style>
-    body {
-      padding: 0;
-      margin: 0;
-      display: flex;
-      justify-content: center;
-    }
-
-    #message-container {
-      width: 80%;
-      max-width: 1200px;
-    }
-
-    #message-container div {
-      background-color: #CCC;
-      padding: 5px;
-    }
-
-    #message-container div:nth-child(2n) {
-      background-color: #FFF;
-    }
-
-    #send-container {
-      position: fixed;
-      padding-bottom: 30px;
-      bottom: 0;
-      background-color: white;
-      max-width: 1200px;
-      width: 80%;
-      display: flex;
-    }
-
-    #message-input {
-      flex-grow: 1;
-    }
-  </style>
-</head>
-<body>
-  <div id="message-container"></div>
-  <form id="send-container">
-    <input type="text" id="message-input">
-    <button type="submit" id="send-button">Send</button>
-  </form>
-</body>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>Chat App</title>
+    <link rel="stylesheet" href="index.css" />
+    <link
+      rel="stylesheet"
+      href="https://unpkg.com/@picocss/pico@1.*/css/pico.min.css"
+    />
+    <script>
+      const roomName = "<%= roomName %>";
+      const username = "<%= user.username %>";
+    </script>
+    <script defer src="http://localhost:3000/socket.io/socket.io.js"></script>
+    <script defer src="script.js"></script>
+  </head>
+  <body>
+    <%- include('./header.ejs') %>
+    <div class="wrapper container">
+      <div id="message-container">
+        <a href="/" class="leave">Leave</a>
+      </div>
+      <form id="send-container">
+        <input type="text" id="message-input" placeholder="type..." />
+        <button type="submit" id="send-button">Send</button>
+      </form>
+    </div>
+  </body>
 </html>
