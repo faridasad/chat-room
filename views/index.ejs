@@ -5,27 +5,55 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta http-equiv="X-UA-Compatible" content="ie=edge" />
     <title>Chat App</title>
-    <script defer src="https://millimeclis.onrender.com/socket.io/socket.io.js"></script>
+    <script
+      defer
+      src="http://localhost:7007/socket.io/socket.io.js"
+    ></script>
     <link rel="stylesheet" href="index.css" />
     <link
       rel="stylesheet"
       href="https://unpkg.com/@picocss/pico@1.*/css/pico.min.css"
     />
     <script defer src="script.js"></script>
+    <script defer>
+        const admin = "<%= user.isAdmin %>"
+        const username = "<%= user.username %>"
+    </script>
   </head>
   <body>
     <%- include('./header.ejs') %>
-    <div id="room-container">
-      <% rooms.forEach(r => { %>
-      <div><%= r.room %></div>
-      <a href="/<%= r.room %>">Join</a>
-      <% }) %>
+    <div class="index-wrapper">
+      <div class="left">
+        <div id="rooms-container">
+          <% rooms.forEach(r => { %>
+          <div class="room">
+            <div><%= r.room %></div>
+            <a href="/<%= r.room %>"><button>Join</button></a>
+          </div>
+          <% }) %> <% if (user.isAdmin === true) { %>
+          <form action="/room" method="POST">
+            <input name="room" type="text" required />
+            <button type="submit">Create</button>
+          </form>
+          <% } %>
+        </div>
+      </div>
+      <div class="right">
+        <span class="users-header">Online 👁 <%=users.length %></span>
+        <div id="users-container">
+          <% users.forEach(u => { %>
+          <div class="user">
+            <span class="username"><%= u.name %></span>
+            <% if(u.isAdmin == true) {%>
+              <span class="boss">🐱‍👤</span>
+            <% } %>
+            <% if(user.isAdmin && !u.isAdmin) {%>
+              <a class="kick" href="/kick/<%= u.id %>">❌</a>
+            <% } %>
+          </div>
+          <% }) %>
+        </div>
+      </div>
     </div>
-    <% if (user.isAdmin === true) { %>
-    <form action="/room" method="POST">
-      <input name="room" type="text" required />
-      <button type="submit">New Room</button>
-    </form>
-    <% } %>
   </body>
 </html>
