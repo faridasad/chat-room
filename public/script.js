@@ -1,9 +1,12 @@
-const socket = io("https://millimeclis.onrender.com/");
+const socket = io("http://localhost:7007");
 const messageContainer = document.getElementById("message-container");
-const roomContainer = document.getElementById("room-container");
+const roomContainer = document.getElementById("rooms-container");
+const userContainer = document.getElementById("users-container");
+const usersHeader = document.querySelector(".users-header");
 const messageForm = document.getElementById("send-container");
 const messageInput = document.getElementById("message-input");
-const sendButton = document.getElementById("send-button")
+const sendButton = document.getElementById("send-button");
+
 
 if (messageForm != null) {
   appendMessage({ message: "You joined" });
@@ -35,6 +38,38 @@ socket.on("room-created", (room) => {
   roomContainer.append(roomLink);
 });
 
+socket.on("user-joined", (user) => {
+
+  let usersCount = parseInt(usersHeader.textContent.split(" ")[2]);
+  usersCount++;
+
+  usersHeader.textContent = `Online 👁 ${usersCount}`;
+
+  const user_con = document.createElement("div");
+  user_con.classList.add("user");
+
+  const username = document.createElement("span");
+  username.textContent = user.name;
+  username.classList.add("username");
+
+  user_con.append(username);
+  if (user.isAdmin) {
+    const boss = document.createElement("span");
+    boss.classList.add("boss");
+
+    boss.textContent = "🐱‍👤";
+    user_con.append(boss);
+  }
+  if(admin == "true") {
+    const kick = document.createElement("a");
+    kick.classList.add("kick");
+    kick.href = `/kick/${user.id}`
+    kick.textContent = "❌";
+    user_con.append(kick);
+  }
+  user.isAdmin ? userContainer.prepend(user_con) : userContainer.append(user_con);
+});
+
 socket.on("chat-message", (data) => {
   const lastMessage = messageContainer.lastChild;
   const currentAuthor = lastMessage.getAttribute("data-author");
@@ -54,8 +89,14 @@ socket.on("user-disconnected", (name) => {
   appendMessage({ message: `${name} disconnected` });
 });
 
+socket.on("kicked", (name) => {
+  if(name == username) {
+    alert("You have been kicked!");
+    window.location.href = "/";
+  }
+})
+
 function appendMessage({ message, isAuthor, who, lastAuthor }) {
-  console.log(lastAuthor, who);
   const messageElement = document.createElement("div");
   const messageText = document.createElement("span");
   messageText.classList.add("message");
