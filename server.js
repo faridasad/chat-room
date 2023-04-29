@@ -37,6 +37,12 @@ app.post("/index", (req, res) => {
     return res.redirect("/");
   }
 
+  if (req.body.password) {
+    if (req.body.password !== process.env.PASS) {
+      return res.redirect("/");
+    }
+  }
+
   try {
     req.session.user = {
       username: req.body.username,
@@ -49,12 +55,12 @@ app.post("/index", (req, res) => {
       name: req.body.username,
       id: req.sessionID,
       isAdmin: req.session.user.isAdmin,
-    }
+    };
 
     users.push(user);
 
-    io.emit("user-joined", user)
-    
+    io.emit("user-joined", user);
+
     return res.redirect("/index");
   } catch (err) {
     return res.redirect("/");
@@ -75,7 +81,6 @@ app.get("/index", requireLogin, (req, res) => {
 });
 
 app.get("/logout", (req, res) => {
-
   users = users.filter((u) => u.name !== req.session.user.username);
 
   req.session.destroy((err) => {
@@ -137,9 +142,8 @@ app.get("/kick/:user", (req, res) => {
     return res.redirect("/index");
   }
 
-  
   users = users.filter((u) => u.id !== req.params.user);
-  
+
   return res.redirect("/index");
 });
 
@@ -150,7 +154,6 @@ server.listen(process.env.PORT, () => {
 // Socket
 
 io.on("connection", (socket) => {
-
   socket.on("new-user", (roomName, name) => {
     socket.join(roomName);
 
