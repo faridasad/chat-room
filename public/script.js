@@ -1,4 +1,4 @@
-const socket = io("http://localhost:7007");
+const socket = io("https://millimeclis.onrender.com/");
 const messageContainer = document.getElementById("message-container");
 const roomContainer = document.getElementById("rooms-container");
 const userContainer = document.getElementById("users-container");
