@@ -116,8 +116,3 @@ function appendMessage({ message, isAuthor, who, lastAuthor }) {
   messageElement.append(messageText);
   messageContainer.append(messageElement);
 }
-
-window.history.pushState(null, null, document.URL);
-window.addEventListener("popstate", function () {
-  window.history.pushState(null, null, document.URL);
-});
