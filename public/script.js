@@ -9,6 +9,7 @@ const sendButton = document.getElementById("send-button");
 
 
 if (messageForm != null) {
+
   appendMessage({ message: "You joined" });
   socket.emit("new-user", roomName, username);
 
@@ -26,20 +27,23 @@ if (messageForm != null) {
       sendButton.disabled = false;
     }, 1000);
   });
+
 }
 
 socket.on("room-created", (room) => {
   const roomElement = document.createElement("div");
+  roomElement.classList.add("room");
   roomElement.innerText = room;
   const roomLink = document.createElement("a");
   roomLink.href = `/${room}`;
-  roomLink.innerText = "Join";
+  const roomButton = document.createElement("button");
+  roomButton.textContent = "Join";
+  roomLink.append(roomButton);
+  roomElement.append(roomLink);
   roomContainer.append(roomElement);
-  roomContainer.append(roomLink);
 });
 
 socket.on("user-joined", (user) => {
-
   let usersCount = parseInt(usersHeader.textContent.split(" ")[2]);
   usersCount++;
 

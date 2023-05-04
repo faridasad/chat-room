@@ -114,11 +114,6 @@ app.get("/:room", (req, res) => {
   if (!rooms.find((r) => r.room === req.params.room) || !req.session.user) {
     return res.redirect("/index");
   }
-  rooms.forEach((r) => {
-    if (r.room != req.params.room) {
-      return res.redirect("/index");
-    }
-  });
   res.render("room", {
     roomName: req.params.room,
     user: req.session.user,
