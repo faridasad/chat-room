@@ -15,6 +15,9 @@ if (messageForm != null) {
 
   messageForm.addEventListener("submit", async (e) => {
     e.preventDefault();
+
+    if(messageInput.value.trim() == "") return;
+
     sendButton.disabled = true;
     const message = messageInput.value;
     const lastMessage = messageContainer.lastChild;
@@ -26,6 +29,8 @@ if (messageForm != null) {
     setTimeout(() => {
       sendButton.disabled = false;
     }, 1000);
+
+    
   });
 
 }
@@ -119,4 +124,5 @@ function appendMessage({ message, isAuthor, who, lastAuthor }) {
   messageText.textContent = message;
   messageElement.append(messageText);
   messageContainer.append(messageElement);
+  messageContainer.scrollTop = messageContainer.scrollHeight;
 }
